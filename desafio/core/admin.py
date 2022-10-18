@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from desafio.core.models import Pessoa
+from .models import Pessoa
 
 admin.site.register([Pessoa])
