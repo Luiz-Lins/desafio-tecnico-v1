@@ -18,6 +18,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 from core.views import PessoaViewSet
+from core.views import PessoaEndpoint
 
 router = routers.DefaultRouter()
 
@@ -26,5 +27,7 @@ router.register(r'Pessoa', PessoaViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls'))
+    path('api-auth/', include('rest_framework.urls')),
+    path('endpoint/', PessoaEndpoint.as_view()),
+    path('endpoint/<int:pk>/', PessoaEndpoint.as_view()),
 ]
