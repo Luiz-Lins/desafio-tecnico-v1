@@ -1,7 +1,7 @@
 from django.http import Http404
-from requests import Response
 from rest_framework import viewsets, status
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, ListModelMixin
+from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
@@ -28,7 +28,7 @@ class PessoaEndpoint(APIView):
         except Pessoa.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
+    def get(self, pk, format=None):
         Pessoa = self.get_object(pk)
         serializer = PessoaSerializer(Pessoa)
         return Response(serializer.data)
@@ -38,10 +38,10 @@ class PessoaEndpoint(APIView):
         serializer = PessoaSerializer(Pessoa, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(PessoaSerializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk, format=None):
+    def delete(self, pk, format=None):
         Pessoa = self.get_object(pk)
         Pessoa.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
