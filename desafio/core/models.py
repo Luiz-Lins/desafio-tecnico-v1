@@ -11,4 +11,4 @@ class Pessoa(models.Model):
         return self.nome
 
     class Meta:
-        ordering = ('nome',)
+        ordering = ('id',)
